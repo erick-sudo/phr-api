@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Doctor;
+use Illuminate\Support\Facades\Gate;
 
 class PatientsController extends Controller
 {
@@ -55,6 +56,9 @@ class PatientsController extends Controller
         if (!$patient) {
             return response()->json(['message' => 'Patient not found'], 404);
         }
+
+        Gate::authorize('view', $patient);
+
         return response()->json($patient);
     }
 
@@ -62,6 +66,9 @@ class PatientsController extends Controller
      * Create a new patient
      */
     public function store(Request $request) {
+
+        Gate::authorize('create', Patient::class);
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'dob' => 'required|date',

@@ -19,6 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role',
         'password',
     ];
 
@@ -43,5 +44,32 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
+    }
+
+    public function hasRole(String $roleName): bool
+    {
+        return in_array(strtoupper($roleName), $this->roles->pluck('name')->map(function ($name) {
+            return strtoupper($name);
+        })->toArray());
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('Administrator');
+    }
+
+    public function isDoctor(): bool
+    {
+        return $this->hasRole('Doctor');
+    }
+
+    public function isPatient(): bool
+    {
+        return $this->hasRole('Patient');
     }
 }

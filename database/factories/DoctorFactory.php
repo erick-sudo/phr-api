@@ -16,9 +16,19 @@ class DoctorFactory extends Factory
      */
     public function definition(): array
     {
+
+        $specializations = [
+            "Internal Medicine",
+            "Obstetrics and Gynecology",
+            "Anesthesiology",
+            "Psychiatry",
+            "Radiology",
+            "Orthopedics",
+        ];
+
         return [
             'name' => fake()->name(),
-            'specialization' => fake()->jobTitle(),
+            'specialization' => $specializations[random_int(0, count($specializations) - 1)],
             'phone' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail()
         ];
