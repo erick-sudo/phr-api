@@ -74,4 +74,16 @@ class MedicalRecordsController extends Controller
 
         return response()->json(['message' => 'MedicalRecord deleted']);
     }
+
+    /**
+     * Lab tests
+     */
+    public function labTests($id) {
+        $medicalRecord = MedicalRecord::find($id);
+        if (!$medicalRecord) {
+            return response()->json(['message' => 'MedicalRecord not found'], 404);
+        }
+
+        return response()->json($medicalRecord->labTests);
+    }
 }

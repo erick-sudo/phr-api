@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('patient_id')->constrained()->onDelete('cascade');
             $table->foreignId('doctor_id')->constrained()->onDelete('cascade');
+            $table->string('status')->default('Pending');
             $table->dateTime('appointment_date');
             $table->string('reason')->nullable();
             $table->timestamps();

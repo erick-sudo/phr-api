@@ -40,10 +40,11 @@ class PatientsController extends Controller
     /**
      * Show all patients
      */
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $page = $request->query('page', 1);
         $size = $request->query('size', 10);
-        
+
         $patients = Patient::orderBy('created_at', 'desc')->paginate($size, ['*'], 'page', $page);
         return response()->json($this->transformPagination($patients));
     }
@@ -51,7 +52,8 @@ class PatientsController extends Controller
     /**
      * Show patients details
      */
-    public function show($id) {
+    public function show($id)
+    {
         $patient = Patient::find($id);
         if (!$patient) {
             return response()->json(['message' => 'Patient not found'], 404);
@@ -65,7 +67,8 @@ class PatientsController extends Controller
     /**
      * Create a new patient
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
 
         Gate::authorize('create', Patient::class);
 
@@ -90,7 +93,8 @@ class PatientsController extends Controller
     /**
      * Update a patient
      */
-    public function update(Request $request, int $id) {
+    public function update(Request $request, int $id)
+    {
         $patient = Patient::find($id);
         if (!$patient) {
             return response()->json(['message' => 'Patient not found'], 404);
@@ -117,7 +121,8 @@ class PatientsController extends Controller
     /**
      * Delete a patient
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $patient = Patient::find($id);
         if (!$patient) {
             return response()->json(['message' => 'Patient not found'], 404);
@@ -138,13 +143,41 @@ class PatientsController extends Controller
             return response()->json(['message' => 'Patient not found'], 404);
         }
 
-        return response()->json($patient->appointments);
+        return response()->json($this->transformAppointments($patient->appointments));
+    }
+
+    public function transformAppointments($appointments)
+    {
+        $transformedAppointments = [];
+        foreach ($appointments as $appointment) {
+            // Retrieve additional information about the patient
+            $patient = Patient::select('id', 'name')->find($appointment->patient_id);
+
+            // Retrieve additional information about the doctor
+            $doctor = Doctor::select('id', 'name')->find($appointment->doctor_id);
+
+            // Create the transformed appointment with additional patient and doctor information
+            $transformedAppointment = [
+                'id' => $appointment->id,
+                'patient' => $patient,
+                'doctor' => $doctor,
+                'status' => $appointment->status,
+                'appointment_date' => $appointment->appointment_date,
+                'reason' => $appointment->reason,
+                'created_at' => $appointment->created_at,
+                'updated_at' => $appointment->updated_at,
+            ];
+
+            // Add the transformed appointment to the list
+            $transformedAppointments[] = $transformedAppointment;
+        }
+        return $transformedAppointments;
     }
 
     public function transformMedicalRecords($medicalRecords)
     {
         $transformedMedicalRecords = [];
-        
+
         foreach ($medicalRecords as $record) {
             $doctor = Doctor::find($record->doctor_id);
 

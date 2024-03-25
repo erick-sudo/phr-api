@@ -22,6 +22,7 @@ class AppointmentFactory extends Factory
             'doctor_id' => Doctor::factory(),
             'patient_id' => Patient::factory(),
             'appointment_date' => fake()->date(),
+            'status' => "Pending",
             'reason' => fake()->paragraph(),
         ];
     }

@@ -55,6 +55,7 @@ Route::prefix('medicalrecords')->group(function () {
     Route::post('/', [MedicalRecordsController::class, 'store']);
     Route::patch('/{id}', [MedicalRecordsController::class, 'update']);
     Route::delete('/{id}', [MedicalRecordsController::class, 'destroy']);
+    Route::get('/{id}/labtests', [MedicalRecordsController::class, 'labTests']);
 });
 
 Route::prefix('dashboard')->group(function () {

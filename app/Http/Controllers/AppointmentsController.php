@@ -26,6 +26,7 @@ class AppointmentsController extends Controller
                 'id' => $appointment->id,
                 'patient' => $patient,
                 'doctor' => $doctor,
+                'status' => $appointment->status,
                 'appointment_date' => $appointment->appointment_date,
                 'reason' => $appointment->reason,
                 'created_at' => $appointment->created_at,
@@ -103,6 +104,7 @@ class AppointmentsController extends Controller
         $validator = Validator::make($request->all(), [
             'patient_id' => 'nullable|int',
             'appointment_id' => 'nullable|int',
+            'status' => 'nullable|string|in:Pending,Approved,Closed',
             'appointment_date' => 'nullable|date',
             'reason' => 'nullable|string|max:255',
         ]);
