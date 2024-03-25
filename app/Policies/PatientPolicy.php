@@ -13,7 +13,8 @@ class PatientPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->isAdmin();
+        //return $user->isAdmin();
+        return true;
     }
 
     /**
@@ -21,7 +22,8 @@ class PatientPolicy
      */
     public function view(User $user, Patient $patient): bool
     {
-        return $user->isAdmin();
+        //return $user->isAdmin();
+        return true;
     }
 
     /**
@@ -29,7 +31,8 @@ class PatientPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isAdmin();
+        //return $user->isAdmin();
+        return true;
     }
 
     /**
@@ -37,7 +40,8 @@ class PatientPolicy
      */
     public function update(User $user, Patient $patient): bool
     {
-        return $user->isAdmin();
+        //return $user->isAdmin();
+        return true;
     }
 
     /**
@@ -45,7 +49,8 @@ class PatientPolicy
      */
     public function delete(User $user, Patient $patient): bool
     {
-        return $user->isAdmin();
+        //return $user->isAdmin();
+        return true;
     }
 
     /**
@@ -53,7 +58,8 @@ class PatientPolicy
      */
     public function restore(User $user, Patient $patient): bool
     {
-        return $user->isAdmin();
+        //return $user->isAdmin();
+        return true;
     }
 
     /**
@@ -61,6 +67,7 @@ class PatientPolicy
      */
     public function forceDelete(User $user, Patient $patient): bool
     {
-        return $user->isAdmin();
+        //return $user->isAdmin();
+        return true;
     }
 }

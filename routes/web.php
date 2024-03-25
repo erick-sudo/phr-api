@@ -17,6 +17,8 @@ Route::prefix('users')->group(function () {
     Route::get('/{id}/roles', [UsersController::class, 'showUserRoles']);
 });
 
+Route::get('/api/profile', [UsersController::class, 'profile']);
+
 Route::prefix('patients')->group(function () {
     Route::get('/', [PatientsController::class, 'index']);
     Route::get('/{id}', [PatientsController::class, 'show']);

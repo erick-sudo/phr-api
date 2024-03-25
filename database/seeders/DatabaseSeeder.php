@@ -33,22 +33,32 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        Doctor::factory(20)->create();
+
+        Patient::factory(12)->create();
+
         $user1 = User::factory()->create([
             'name' => 'John Doe',
             'email' => 'admin@phr.com',
             'role' => 'Administrator',
         ]);
 
+        $firstDoctor = Doctor::first();
+
         $user2 = User::factory()->create([
             'name' => 'Travis Cure',
             'email' => 'travis@phr.com',
             'role' => 'Doctor',
+            'doctor_id' => $firstDoctor->id
         ]);
+
+        $firstPatient = Patient::first();
 
         $user3 = User::factory()->create([
             'name' => 'Steve Jobs',
             'email' => 'steve@phr.com',
             'role' => 'Patient',
+            'patient_id' => $firstPatient->id
         ]);
 
         $roles = ["Administrator", "Doctor", "Patient", "ManageAppointments"];
@@ -64,10 +74,6 @@ class DatabaseSeeder extends Seeder
         $this->assignRole('Patient', $user3);
 
         $role = Role::where('name', $roleName)->first();
-
-        Doctor::factory(20)->create();
-
-        Patient::factory(12)->create();
 
         Appointment::factory(12)->create();
 

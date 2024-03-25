@@ -72,4 +72,25 @@ class User extends Authenticatable
     {
         return $this->hasRole('Patient');
     }
+
+    public function doctorProfile()
+    {
+        return $this->hasOne(Doctor::class);
+    }
+
+    public function patientProfile()
+    {
+        return $this->hasOne(Patient::class);
+    }
+
+    public function profile()
+    {
+        if($this->isAdmin()) {
+            return null;
+        } elseif($this->isDoctor()) {
+            return $this->doctorProfile();
+        } else {
+            return $this->patientProfile();
+        }
+    }
 }

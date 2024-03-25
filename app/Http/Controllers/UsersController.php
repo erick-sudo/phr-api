@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
@@ -22,7 +23,19 @@ class UsersController extends Controller
     }
 
     /**
-     * Show User details
+     * User profile
+     */
+    public function profile(Request $request) {
+        $user = $request->user();
+        if (!$user) {
+            return response()->json(['message' => 'You are unauthorized'], 403);
+        }
+        
+        return response()->json($user->profile());
+    }
+
+    /**
+     * Show User roles
      */
     public function showUserRoles($id) {
         $user = User::find($id);
