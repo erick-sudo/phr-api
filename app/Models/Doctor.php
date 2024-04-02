@@ -31,8 +31,8 @@ class Doctor extends Model
         return $this->belongsToMany(Department::class);
     }
 
-    public function user()
-    {
-        return $this->hasOne(User::class);
-    }
+    // public function user()
+    // {
+    //     return $this->hasOne(User::class);
+    // }
 }

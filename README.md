@@ -211,3 +211,10 @@ Now i need associations for Patient, Doctor, Appointment, LabTest, TestResult, M
 
 
 0741918669
+
+SENDGRID_API_KEY
+
+{
+    "error": true,
+    "message": "Client error: `POST https://6jxgvd.api.infobip.com/email/3/send` resulted in a `400 Bad Request` response:\n{\"requestError\":{\"serviceException\":{\"messageId\":\"BAD_REQUEST\",\"text\":\"[from : not a well-formed email address]\"}}}\n"
+}
